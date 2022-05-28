@@ -1,6 +1,6 @@
 # gdx-logging
 
-(Test) Simple logging framework for libgdx.
+Simple logging framework for libgdx. This is my first Java library for a long time!
 
 ## Getting started
 
@@ -24,3 +24,11 @@ dependencies {
 ```
 
 And then to use the library... TODO
+
+## Developing in Eclipse
+
+1. Clone this repository using Git
+2. _Import_ > _Existing Gradle Project_ (important – don't just import the root folder)
+
+You can also run `gradlew eclipse` to reset the `.project` and `.classpath` files.
+
