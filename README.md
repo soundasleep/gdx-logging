@@ -23,6 +23,8 @@ dependencies {
 }
 ```
 
+Use `gradlew --refresh-dependencies` to force Gradle to pull the latest copy of all your dependencies.
+
 And then to use the library... TODO
 
 ## Developing in Eclipse
