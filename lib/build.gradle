@@ -9,6 +9,7 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+    id 'eclipse'
 }
 
 repositories {
@@ -34,3 +35,5 @@ java {
 	withSourcesJar()
 	withJavadocJar()
 }
+
+eclipse.project.name = rootProject.name + "-lib"
