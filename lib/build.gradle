@@ -19,13 +19,16 @@ repositories {
 
 ext {
   gdxVersion = '1.9.14'
+  jdtVersion = '2.2.600'
+  junitVersion = '4.13.2'
 }
 
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "org.eclipse.jdt:org.eclipse.jdt.annotation:$jdtVersion"
 
   // Use JUnit test framework.
-  testImplementation 'junit:junit:4.13.2'
+  testImplementation "junit:junit:$junitVersion"
 }
 
 group = 'org.jevon.gdx.logging'

@@ -3,6 +3,8 @@
  */
 package org.jevon.gdx.logging;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import com.badlogic.gdx.ApplicationLogger;
 
 /**
@@ -11,37 +13,44 @@ import com.badlogic.gdx.ApplicationLogger;
  * @author Jevon
  *
  */
-public class SystemOutLogger implements ApplicationLogger {
+public class SystemOutLogger extends AbstractLogger implements ApplicationLogger {
+
+	@Override
+	protected void actuallyLog(@NonNull Level level, @NonNull String tag, @NonNull String formattedMessage) {
+		System.out.println(String.format("[%s] %s", tag, formattedMessage));
+	}
+	
 	@Override
 	public void log(String tag, String message) {
-		System.out.println("[" + tag + "] " + message);
+		super.info(requireNonNull(tag), requireNonNull(message));
 	}
 
 	@Override
 	public void log(String tag, String message, Throwable exception) {
-		System.out.println("[" + tag + "] " + message);
+		log(tag, message);
 		exception.printStackTrace(System.out);
 	}
 
 	@Override
 	public void error(String tag, String message) {
-		System.err.println("[" + tag + "] " + message);
+		super.error(requireNonNull(tag), requireNonNull(message));
 	}
 
 	@Override
 	public void error(String tag, String message, Throwable exception) {
-		System.err.println("[" + tag + "] " + message);
+		error(tag, message);
 		exception.printStackTrace(System.err);
 	}
 
 	@Override
 	public void debug(String tag, String message) {
-		System.out.println("[" + tag + "] " + message);
+		super.debug(requireNonNull(tag), requireNonNull(message));
 	}
 
 	@Override
 	public void debug(String tag, String message, Throwable exception) {
-		System.out.println("[" + tag + "] " + message);
+		debug(tag, message);
 		exception.printStackTrace(System.out);
 	}
+
 }
