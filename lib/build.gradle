@@ -28,7 +28,7 @@ repositories {
 }
 
 ext {
-  gdxVersion = '1.9.14'
+  gdxVersion = '1.10.0'
   jdtVersion = '2.2.600'
   junitVersion = '4.13.2'
 }
@@ -39,6 +39,8 @@ dependencies {
 
   // Use JUnit test framework.
   testImplementation "junit:junit:$junitVersion" 
+  testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+  testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
 
 group = 'org.jevon.gdx.logging'

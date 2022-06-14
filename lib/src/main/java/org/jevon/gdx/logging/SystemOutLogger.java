@@ -5,15 +5,13 @@ package org.jevon.gdx.logging;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-import com.badlogic.gdx.ApplicationLogger;
-
 /**
  * Copy-paste of libgdx's default {@code LwjglApplicationLogger}.
  * 
  * @author Jevon
  *
  */
-public class SystemOutLogger extends AbstractLogger implements ApplicationLogger {
+public class SystemOutLogger extends GdxApplicationLogger {
 	
 	/** 
 	 * Create a new logger with the default logging level {@link AbstractLogger#DEFAULT_LEVEL}.
@@ -35,36 +33,12 @@ public class SystemOutLogger extends AbstractLogger implements ApplicationLogger
 	}
 	
 	@Override
-	public void log(String tag, String message) {
-		super.info(requireNonNull(tag), requireNonNull(message));
-	}
-
-	@Override
-	public void log(String tag, String message, Throwable exception) {
-		log(tag, message);
-		exception.printStackTrace(System.out);
-	}
-
-	@Override
-	public void error(String tag, String message) {
-		super.error(requireNonNull(tag), requireNonNull(message));
-	}
-
-	@Override
-	public void error(String tag, String message, Throwable exception) {
-		error(tag, message);
-		exception.printStackTrace(System.err);
-	}
-
-	@Override
-	public void debug(String tag, String message) {
-		super.debug(requireNonNull(tag), requireNonNull(message));
-	}
-
-	@Override
-	public void debug(String tag, String message, Throwable exception) {
-		debug(tag, message);
-		exception.printStackTrace(System.out);
+	protected void printStackTrace(@NonNull Level level, Throwable exception) {
+		if (level.value >= Level.WARN.value) {
+			exception.printStackTrace(System.err);
+		} else {
+			exception.printStackTrace(System.out);
+		}
 	}
 
 }

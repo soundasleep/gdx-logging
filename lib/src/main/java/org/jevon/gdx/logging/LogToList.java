@@ -15,7 +15,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Jevon
  *
  */
-public class LogToList extends AbstractLogger {
+public class LogToList extends GdxApplicationLogger {
 	
 	private final @NonNull List<@NonNull String> list = new ArrayList<>(); 
 	
@@ -50,6 +50,16 @@ public class LogToList extends AbstractLogger {
 	 */
 	public void clear() {
 		list.clear();
+	}
+
+	@Override
+	protected void printStackTrace(@NonNull Level level, Throwable exception) {
+		String message = exception.getMessage();
+		if (message == null) {
+			message = "null";
+		}
+		
+		list.add(message);
 	}
 	
 }
