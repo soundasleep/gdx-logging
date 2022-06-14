@@ -30,7 +30,7 @@ public class MyClass {
   
   private void method() {
     if (LOG.info()) {
-      LOG.info("hello! %s + %s = %s", 1, 1, 2);
+      LOG.info("hello! %s + %s = %s", 1, 1, 2);  // => System.out.println("[MyClass] hello! 1 + 1 = 2");
     }
   } 
 }
@@ -50,3 +50,9 @@ private void method() {
 2. _Import_ > _Existing Gradle Project_ (important – don't just import the root folder)
 
 You can also run `gradlew eclipse` to reset the `.project` and `.classpath` files.
+
+## TODO
+
+* Able to configure the logging levels of different groups
+* Writing logs to a filesystem
+* All the other things that a good logging library needs
