@@ -21,6 +21,7 @@ public class SystemOutLoggerTest {
 		
 		log.log("tag", "log message");
 		log.error("tag", "error message");
+		log.info("tag", "info message");
 		log.debug("tag", "debug message");
 	}
 

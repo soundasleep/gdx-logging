@@ -13,7 +13,7 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 public abstract class AbstractLogger implements FastLogger {
 	
-	private static final @NonNull Level DEFAULT_LEVEL = Level.WARN;
+	private static final @NonNull Level DEFAULT_LEVEL = Level.INFO;
 	
 	protected @NonNull Level currentLevel;
 	

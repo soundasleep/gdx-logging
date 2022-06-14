@@ -14,6 +14,20 @@ import com.badlogic.gdx.ApplicationLogger;
  *
  */
 public class SystemOutLogger extends AbstractLogger implements ApplicationLogger {
+	
+	/** 
+	 * Create a new logger with the default logging level {@link AbstractLogger#DEFAULT_LEVEL}.
+	 */
+	public SystemOutLogger() {
+		super();
+	}
+
+	/**
+	 * @param level the logging level to start at 
+	 **/
+	public SystemOutLogger(@NonNull Level level) {
+		super(level);
+	}
 
 	@Override
 	protected void actuallyLog(@NonNull Level level, @NonNull String tag, @NonNull String formattedMessage) {
