@@ -40,7 +40,7 @@ public class MyClass {
 
 ```java
 private void method() {
-  Gdx.newLog("my-library").info("hello!");
+  GdxLog.newLog("my-library").info("hello!");
 }
 ```
 
