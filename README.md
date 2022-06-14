@@ -1,4 +1,4 @@
-# gdx-logging
+# gdx-logging [![](https://jitpack.io/v/soundasleep/gdx-logging.svg)](https://jitpack.io/#soundasleep/gdx-logging)
 
 Simple logging framework for libgdx. This is my first Java library for a long time!
 
@@ -19,7 +19,7 @@ And then in your dependencies:
 
 ```groovy
 dependencies {
-  implementation 'com.github.soundasleep:gdx-logging:main-SNAPSHOT'
+  implementation 'com.github.soundasleep:gdx-logging:0.1.3' // or 'main-SNAPSHOT' for the latest build
 }
 ```
 
