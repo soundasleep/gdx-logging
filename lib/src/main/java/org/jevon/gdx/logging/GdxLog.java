@@ -105,6 +105,9 @@ public interface GdxLog {
 	}
 	
 	/**
+	 * Log relatively detailed tracing used by application developers.
+	 * 
+	 * <p>
 	 * If we are logging at the {@link #debug()} level, log the given message,
 	 * optionally {@link String#format(String, Object...) formatted} with the given arguments.
 	 * 
@@ -117,6 +120,9 @@ public interface GdxLog {
 	}
 	
 	/**
+	 * Log informational messages that might make sense to end users and system administrators, and highlight the progress of the application.
+	 * 
+	 * <p>
 	 * If we are logging at the {@link #info()} level, log the given message,
 	 * optionally {@link String#format(String, Object...) formatted} with the given arguments.
 	 * 
@@ -129,6 +135,9 @@ public interface GdxLog {
 	}
 	
 	/**
+	 * Log potentially harmful situations of interest to end users or system managers that indicate potential problems.
+	 * 
+	 * <p>
 	 * If we are logging at the {@link #warn()} level, log the given message,
 	 * optionally {@link String#format(String, Object...) formatted} with the given arguments.
 	 * 
@@ -141,6 +150,9 @@ public interface GdxLog {
 	}
 	
 	/**
+	 * Log error events of considerable importance that will prevent normal program execution, but might still allow the application to continue running.
+	 * 
+	 * <p>
 	 * If we are logging at the {@link #error()} level, log the given message,
 	 * optionally {@link String#format(String, Object...) formatted} with the given arguments.
 	 * 
