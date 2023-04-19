@@ -29,7 +29,7 @@ public interface GdxLog {
 	 * 
 	 * <pre>GdxLog log = GdxLog.newLog("my-library");</pre>
 	 */
-	public static GdxLog newLog(@NonNull String tag) {
+	public static @NonNull GdxLog newLog(@NonNull String tag) {
 		return new TaggedToGdxLogger(tag);
 	}
 	
@@ -41,7 +41,7 @@ public interface GdxLog {
 	 * 
 	 * will return a logger with the tag "String".
 	 */
-	public static GdxLog newLog(@NonNull Class<?> cls) {
+	public static @NonNull GdxLog newLog(@NonNull Class<?> cls) {
 		String name = cls.getSimpleName();
 		if (name == null) {
 			name = "null";
