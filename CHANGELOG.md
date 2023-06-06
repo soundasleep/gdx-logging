@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.3.0...HEAD)
 
+## [0.3.1](https://github.com/soundasleep/gdx-logging/compare/0.3.0...0.3.1)
+
+- Renamed `LICENSE.md` to `LICENSE` to fix [Gradle-License-Report](https://github.com/jk1/Gradle-License-Report) not picking up the correct license
+
 ## [0.3.0](https://github.com/soundasleep/gdx-logging/compare/0.2.0...0.3.0)
 
 - Updated GitHub CI to OpenJDK 17
