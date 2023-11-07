@@ -4,6 +4,8 @@
 package org.jevon.gdx.logging;
 
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 import com.badlogic.gdx.ApplicationLogger;
 
@@ -13,6 +15,7 @@ import com.badlogic.gdx.ApplicationLogger;
  * @author Jevon
  *
  */
+@NonNullByDefault
 public abstract class GdxApplicationLogger extends AbstractLogger implements ApplicationLogger {
 	
 	/** 
@@ -25,46 +28,46 @@ public abstract class GdxApplicationLogger extends AbstractLogger implements App
 	/**
 	 * @param level the logging level to start at 
 	 **/
-	public GdxApplicationLogger(@NonNull Level level) {
+	public GdxApplicationLogger(Level level) {
 		super(level);
 	}
 	
 	/**
 	 * Print the given stack trace somewhere.
 	 */
-	protected abstract void printStackTrace(@NonNull Level level, Throwable exception);
+	protected abstract void printStackTrace(Level level, Throwable exception);
 
 	@Override
-	public void log(String tag, String message) {
+	public void log(@Nullable String tag, @Nullable String message) {
 		super.info(requireNonNull(tag), requireNonNull(message));
 	}
 
 	@Override
-	public void log(String tag, String message, Throwable exception) {
+	public void log(@Nullable String tag, @Nullable String message, @Nullable Throwable exception) {
 		log(tag, message);
-		printStackTrace(Level.INFO, exception);
+		printStackTrace(Level.INFO, requireNonNull("exception", exception));
 	}
 
 	@Override
-	public void error(String tag, String message) {
+	public void error(@Nullable String tag, @Nullable String message) {
 		super.error(requireNonNull(tag), requireNonNull(message));
 	}
 
 	@Override
-	public void error(String tag, String message, Throwable exception) {
+	public void error(@Nullable String tag, @Nullable String message, @Nullable Throwable exception) {
 		error(tag, message);
-		printStackTrace(Level.ERROR, exception);
+		printStackTrace(Level.ERROR, requireNonNull("exception", exception));
 	}
 
 	@Override
-	public void debug(String tag, String message) {
+	public void debug(@Nullable String tag, @Nullable String message) {
 		super.debug(requireNonNull(tag), requireNonNull(message));
 	}
 
 	@Override
-	public void debug(String tag, String message, Throwable exception) {
+	public void debug(@Nullable String tag, @Nullable String message, @Nullable Throwable exception) {
 		debug(tag, message);
-		printStackTrace(Level.DEBUG, exception);
+		printStackTrace(Level.DEBUG, requireNonNull("exception", exception));
 	}
 
 }

@@ -59,6 +59,17 @@ public abstract class AbstractLogger implements FastLogger {
 		}
 		
 		return value;
+	}	
+	/** 
+	 * Ensure that the given value is not {@code null}, or throws
+	 * a {@link NullPointerException}.
+	 */
+	protected static <V> @NonNull V requireNonNull(String message, V value) {
+		if (value == null) {
+			throw new NullPointerException(String.format("%s: %s should not be null", message, value));
+		}
+		
+		return value;
 	}
 	
 	/** 

@@ -4,6 +4,8 @@
 package org.jevon.gdx.logging;
 
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 import com.badlogic.gdx.ApplicationLogger;
 import com.badlogic.gdx.Gdx;
@@ -14,15 +16,18 @@ import com.badlogic.gdx.Gdx;
  * @author Jevon
  *
  */
+@NonNullByDefault
 public class TaggedToGdxLogger implements GdxLog {  
 	
-	protected final @NonNull String tag;
+	protected final String tag;
 	
 	protected final static ApplicationLogger DEFAULT_LOGGER = new SystemOutLogger();
 	
-	protected FastLogger parentLogger;
+	protected static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = (FastLogger) DEFAULT_LOGGER;
 	
-	public TaggedToGdxLogger(@NonNull String tag) {
+	protected @Nullable FastLogger parentLogger;
+	
+	public TaggedToGdxLogger(String tag) {
 		// if Gdx.app hasn't been set up yet, this will return null.
 		// we will initialise it later when we try to log, hopefully Gdx.app
 		// will be set by then
@@ -34,7 +39,7 @@ public class TaggedToGdxLogger implements GdxLog {
 	 * @param warnIfNull if true, and Gdx.app is null, display a warning message
 	 * @return the parent logger from Gdx.app, or {@code null} if Gdx.app is null
 	 */
-	protected static FastLogger initialiseParentLogger(boolean warnIfNull) {
+	protected static @Nullable FastLogger initialiseParentLogger(boolean warnIfNull) {
 		if (Gdx.app == null) {
 			if (warnIfNull) {
 				System.err.println("[gdx-logging] warning: Gdx.app is null: falling back to DEFAULT_LOGGER");
@@ -50,17 +55,21 @@ public class TaggedToGdxLogger implements GdxLog {
 	}
 
 	@Override
-	public FastLogger getParentLogger() {
+	public @Nullable FastLogger getParentLogger() {
 		if (parentLogger == null) {
 			parentLogger = initialiseParentLogger(true);
 
 			if (parentLogger == null) {
 				// if Gdx.app is _still_ not set up, fallback temporarily
-				return (FastLogger) DEFAULT_LOGGER;
+				return currentFallbackLoggerIfGdxAppNotSetupYet;
 			}
 		}		
 		
 		return parentLogger;
+	}
+	
+	public static void setFallbackLoggerIfGdxAppNotSetupYet(FastLogger logger) {
+		currentFallbackLoggerIfGdxAppNotSetupYet = logger;
 	}
 
 	@Override
