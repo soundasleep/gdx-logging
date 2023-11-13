@@ -1,6 +1,10 @@
 # gdx-logging changelog
 
-## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.4.0...HEAD)
+## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.4.1...HEAD)
+
+## [0.4.1](https://github.com/soundasleep/gdx-logging/compare/0.4.0...0.4.1)
+
+- Added support for logging `Throwable`s directly with `log#throwable(Throwable t);`
 
 ## [0.4.0](https://github.com/soundasleep/gdx-logging/compare/0.3.1...0.4.0)
 
