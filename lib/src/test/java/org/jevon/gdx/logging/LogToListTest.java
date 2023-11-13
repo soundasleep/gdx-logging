@@ -3,11 +3,12 @@
  */
 package org.jevon.gdx.logging;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.jevon.gdx.logging.FastLogger.Level;
 import org.junit.Test;

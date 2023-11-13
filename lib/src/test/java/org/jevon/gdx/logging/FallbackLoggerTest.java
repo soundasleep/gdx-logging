@@ -3,8 +3,11 @@
  */
 package org.jevon.gdx.logging;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Collection;
-import static org.junit.Assert.*;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.junit.Test;

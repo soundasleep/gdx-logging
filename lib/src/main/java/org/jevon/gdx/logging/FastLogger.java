@@ -6,7 +6,6 @@ package org.jevon.gdx.logging;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
