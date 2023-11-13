@@ -37,5 +37,18 @@ public class FallbackLoggerTest {
 		assertEquals(1, fallback.getList().size());
 		assertTrue(fallback.getList().get(0).contains(" test2"));
 	}
+	
+	@Test
+	public void testThrowable() {
+		try {
+			if (true) {
+				throw new IndexOutOfBoundsException("expected");
+			}
+			fail("unexpected");
+		} catch (IndexOutOfBoundsException e) {
+			// print to log
+			log.throwable(e);			
+		}		
+	}
 
 }

@@ -4,6 +4,8 @@
 package org.jevon.gdx.logging;
 
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.jevon.gdx.logging.FastLogger.Level;
 
 /**
@@ -21,6 +23,7 @@ import org.jevon.gdx.logging.FastLogger.Level;
  * @author Jevon
  *
  */
+@NonNullByDefault
 public interface GdxLog {
 
 	/**
@@ -29,7 +32,7 @@ public interface GdxLog {
 	 * 
 	 * <pre>GdxLog log = GdxLog.newLog("my-library");</pre>
 	 */
-	public static @NonNull GdxLog newLog(@NonNull String tag) {
+	public static GdxLog newLog(String tag) {
 		return new TaggedToGdxLogger(tag);
 	}
 	
@@ -41,7 +44,7 @@ public interface GdxLog {
 	 * 
 	 * will return a logger with the tag "String".
 	 */
-	public static @NonNull GdxLog newLog(@NonNull Class<?> cls) {
+	public static GdxLog newLog(Class<?> cls) {
 		String name = cls.getSimpleName();
 		if (name == null) {
 			name = "null";
@@ -73,24 +76,24 @@ public interface GdxLog {
 		return getParentLogger().willLog(Level.ERROR);
 	}
 	
-	public default boolean willLog(@NonNull Level level) {
+	public default boolean willLog(Level level) {
 		return getParentLogger().getCurrentLevel().value >= level.value;
 	}
 	
 	/** @return the current logging level */
-	public default @NonNull Level getCurrentLevel() {
+	public default Level getCurrentLevel() {
 		return getParentLogger().getCurrentLevel();
 	}
 	
 	/** Set the current logging level for subsequent logging */
-	public default void setCurrentLevel(@NonNull Level level) {
+	public default void setCurrentLevel(Level level) {
 		getParentLogger().setCurrentLevel(level);
 	}
 	
 	/**
 	 * Get the tag for this logger.
 	 */
-	public @NonNull String getTag();
+	public String getTag();
 	
 	/**
 	 * If we are logging at the given level, log the given message,
@@ -100,7 +103,7 @@ public interface GdxLog {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void log(@NonNull Level level, @NonNull String message, Object... args) {
+	public default void log(Level level, String message, @Nullable Object... args) {
 		getParentLogger().log(level, getTag(), message, args);
 	}
 	
@@ -115,7 +118,7 @@ public interface GdxLog {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void debug(@NonNull String message, Object... args) {
+	public default void debug(String message, @Nullable Object... args) {
 		log(Level.DEBUG, message, args);
 	}
 	
@@ -130,7 +133,7 @@ public interface GdxLog {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void info(@NonNull String message, Object... args) {
+	public default void info(String message, @Nullable Object... args) {
 		log(Level.INFO, message, args);
 	}
 	
@@ -145,7 +148,7 @@ public interface GdxLog {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void warn(@NonNull String message, Object... args) {
+	public default void warn(String message, @Nullable Object... args) {
 		log(Level.WARN, message, args);
 	}
 	
@@ -160,8 +163,15 @@ public interface GdxLog {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void error(@NonNull String message, Object... args) {
+	public default void error(String message, @Nullable Object... args) {
 		log(Level.ERROR, message, args);
+	}
+
+	/**
+	 * Log the given throwable, with no other context, to the logger
+	 */
+	public default void throwable(Throwable cause) {
+		getParentLogger().throwable(getTag(), cause);
 	}
 	
 }

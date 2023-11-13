@@ -3,7 +3,12 @@
  */
 package org.jevon.gdx.logging;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * A nice, simple logger interface that satisfies the following constraints:
@@ -36,6 +41,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @author Jevon
  *
  */
+@NonNullByDefault
 public interface FastLogger {
 
 	public static enum Level {
@@ -86,15 +92,15 @@ public interface FastLogger {
 		return willLog(Level.ERROR);
 	}
 	
-	public default boolean willLog(@NonNull Level level) {
+	public default boolean willLog(Level level) {
 		return getCurrentLevel().value >= level.value;
 	}
 	
 	/** @return the current logging level */
-	public @NonNull Level getCurrentLevel();
+	public Level getCurrentLevel();
 	
 	/** Set the current logging level for subsequent logging */
-	public void setCurrentLevel(@NonNull Level level);
+	public void setCurrentLevel(Level level);
 
 	/**
 	 * If we are logging at the given level, log the given message,
@@ -104,7 +110,7 @@ public interface FastLogger {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public void log(@NonNull Level level, @NonNull String tag, @NonNull String message, Object... args);
+	public void log(Level level, String tag, String message, @Nullable Object... args);
 	
 	/**
 	 * Log relatively detailed tracing used by application developers.
@@ -117,7 +123,7 @@ public interface FastLogger {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void debug(@NonNull String tag, @NonNull String message, Object... args) {
+	public default void debug(String tag, String message, @Nullable Object... args) {
 		log(Level.DEBUG, tag, message, args);
 	}
 	
@@ -132,7 +138,7 @@ public interface FastLogger {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void info(@NonNull String tag, @NonNull String message, Object... args) {
+	public default void info(String tag, String message, @Nullable Object... args) {
 		log(Level.INFO, tag, message, args);
 	}
 	
@@ -147,7 +153,7 @@ public interface FastLogger {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void warn(@NonNull String tag, @NonNull String message, Object... args) {
+	public default void warn(String tag, String message, @Nullable Object... args) {
 		log(Level.WARN, tag, message, args);
 	}
 	
@@ -162,8 +168,18 @@ public interface FastLogger {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void error(@NonNull String tag, @NonNull String message, Object... args) {
+	public default void error(String tag, String message, @Nullable Object... args) {
 		log(Level.ERROR, tag, message, args);
+	}
+	
+	public default void throwable(String tag, Throwable cause) {
+		StringWriter sw = new StringWriter();
+		cause.printStackTrace(new PrintWriter(sw));
+		String s = sw.toString();
+		if (s == null) {
+			throw new NullPointerException("unexpected null toString");
+		}
+		log(Level.ERROR, tag, s);
 	}
 	
 }

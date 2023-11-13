@@ -55,7 +55,8 @@ public class TaggedToGdxLogger implements GdxLog {
 	}
 
 	@Override
-	public @Nullable FastLogger getParentLogger() {
+	public FastLogger getParentLogger() {
+		FastLogger parentLogger = this.parentLogger;
 		if (parentLogger == null) {
 			parentLogger = initialiseParentLogger(true);
 
