@@ -178,7 +178,7 @@ public interface FastLogger {
 		if (s == null) {
 			throw new NullPointerException("unexpected null toString");
 		}
-		log(Level.ERROR, tag, s);
+		log(Level.ERROR, tag, "%s", s);
 	}
 	
 }

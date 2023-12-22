@@ -1,6 +1,10 @@
 # gdx-logging changelog
 
-## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.4.1...HEAD)
+## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.4.2...HEAD)
+
+## [0.4.2](https://github.com/soundasleep/gdx-logging/compare/0.4.1...0.4.2)
+
+- Fixed a potential infinite loop when printing a throwable containing formatting characters such as `%s`
 
 ## [0.4.1](https://github.com/soundasleep/gdx-logging/compare/0.4.0...0.4.1)
 
