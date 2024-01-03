@@ -3,7 +3,6 @@
  */
 package org.jevon.gdx.logging;
 
-import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
