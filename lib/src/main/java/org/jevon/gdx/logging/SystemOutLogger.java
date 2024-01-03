@@ -4,13 +4,17 @@
 package org.jevon.gdx.logging;
 
 import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
 /**
  * Copy-paste of libgdx's default {@code LwjglApplicationLogger}.
+ * If the log level is >= {@Link Level#ERROR}, it is printed to stderr;
+ * otherwise, printed to stdout.
  * 
  * @author Jevon
  *
  */
+@NonNullByDefault
 public class SystemOutLogger extends GdxApplicationLogger {
 	
 	/** 
@@ -23,18 +27,23 @@ public class SystemOutLogger extends GdxApplicationLogger {
 	/**
 	 * @param level the logging level to start at 
 	 **/
-	public SystemOutLogger(@NonNull Level level) {
+	public SystemOutLogger(Level level) {
 		super(level);
 	}
 
 	@Override
-	protected void actuallyLog(@NonNull Level level, @NonNull String tag, @NonNull String formattedMessage) {
-		System.out.println(String.format("[%s] %s", tag, formattedMessage));
+	protected void actuallyLog(Level level, String tag, String formattedMessage) {
+		String toPrint = "[" + tag + "] " + formattedMessage;
+		if (level.value >= Level.ERROR.value) {
+			System.err.println(toPrint);
+		} else {
+			System.out.println(toPrint);
+		}
 	}
 	
 	@Override
-	protected void printStackTrace(@NonNull Level level, Throwable exception) {
-		if (level.value >= Level.WARN.value) {
+	protected void printStackTrace(Level level, Throwable exception) {
+		if (level.value >= Level.ERROR.value) {
 			exception.printStackTrace(System.err);
 		} else {
 			exception.printStackTrace(System.out);

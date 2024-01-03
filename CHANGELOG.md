@@ -1,6 +1,10 @@
 # gdx-logging changelog
 
-## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.4.2...HEAD)
+## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.4.3...HEAD)
+
+## [0.4.3](https://github.com/soundasleep/gdx-logging/compare/0.4.2...0.4.3)
+
+- Stdout log messages above ERROR are now printed to stderr
 
 ## [0.4.2](https://github.com/soundasleep/gdx-logging/compare/0.4.1...0.4.2)
 
