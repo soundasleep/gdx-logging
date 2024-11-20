@@ -94,9 +94,7 @@ public class LogToListTest {
 
 	@Test
 	public void testPrintingTime() {
-		LogToList log = new LogToList(Level.INFO);
-		
-		assertEquals(PrintTimeOption.ISO_LOCAL_TIME, log.getCurrentLogTimeOption());
+		LogToList log = new LogToList(Level.INFO, PrintTimeOption.ISO_LOCAL_TIME);
 		
 		LocalTime now = LocalTime.now();
 		// don't run this test if it's close to x:59, just in case the time
