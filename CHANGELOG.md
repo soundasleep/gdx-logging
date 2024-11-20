@@ -1,6 +1,10 @@
 # gdx-logging changelog
 
-## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.5.0...HEAD)
+## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.5.1...HEAD)
+
+## [0.5.1](https://github.com/soundasleep/gdx-logging/compare/0.5.0...0.5.1)
+
+- Change default `PrintTimeOption` for new logs to `NONE`
 
 ## [0.5.0](https://github.com/soundasleep/gdx-logging/compare/0.4.3...0.5.0)
 

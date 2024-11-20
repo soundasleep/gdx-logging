@@ -22,8 +22,8 @@ public abstract class AbstractLogger implements FastLogger {
 	
 	protected Level currentLevel;
 	
-	/** default print time option: ISO_LOCAL_TIME */
-	public static final PrintTimeOption DEFAULT_PRINT_TIME = PrintTimeOption.ISO_LOCAL_TIME;
+	/** default print time option: NONE */
+	public static final PrintTimeOption DEFAULT_PRINT_TIME = PrintTimeOption.NONE;
 	
 	protected PrintTimeOption currentPrintTime;
 	
