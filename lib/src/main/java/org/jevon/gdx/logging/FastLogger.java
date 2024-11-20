@@ -3,8 +3,17 @@
  */
 package org.jevon.gdx.logging;
 
+import static java.time.temporal.ChronoField.HOUR_OF_DAY;
+import static java.time.temporal.ChronoField.MINUTE_OF_HOUR;
+import static java.time.temporal.ChronoField.NANO_OF_SECOND;
+import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -63,6 +72,54 @@ public interface FastLogger {
 		}
 	}
 	
+	/**
+	 * Different predefined ways to print the date/time before log messages.
+	 * 
+	 * @author jevon
+	 *
+	 */
+	public static enum PrintTimeOption {
+		
+		NONE,
+		
+		/** hh:mm:ss.nnn */
+		ISO_LOCAL_TIME,
+		;
+		
+		public static final DateTimeFormatter OUR_ISO_LOCAL_TIME = new DateTimeFormatterBuilder()
+	                .appendValue(HOUR_OF_DAY, 2)
+	                .appendLiteral(':')
+	                .appendValue(MINUTE_OF_HOUR, 2)
+	                .optionalStart()
+	                .appendLiteral(':')
+	                .appendValue(SECOND_OF_MINUTE, 2)
+	                .appendLiteral('.')
+	                .appendFraction(NANO_OF_SECOND, 3, 3, false)
+	                .toFormatter();
+		
+		/** @return a string to prefix to log messages representing the current time, can be the empty string */
+		public String getCurrentPrintTime() {
+			switch (this) {
+			case NONE:
+				return "";
+			case ISO_LOCAL_TIME:
+				return getIsoLocalTime();
+			default:
+				throw new IllegalStateException("unknown option " + this);
+			}
+		}
+		
+		public boolean isBlank() {
+			return this == NONE;
+		}
+		
+		private static String getIsoLocalTime() {
+			LocalTime now = LocalTime.now();
+			return now.format(OUR_ISO_LOCAL_TIME);
+		}
+
+	}
+	
 	/** 
 	 * @return true if debug or higher messages will be printed somewhere 
 	 */
@@ -100,6 +157,12 @@ public interface FastLogger {
 	
 	/** Set the current logging level for subsequent logging */
 	public void setCurrentLevel(Level level);
+	
+	/** @return the current way the log prints out the system time */
+	public PrintTimeOption getCurrentLogTimeOption();
+	
+	/** Set the way the log prints out the system time at log time */
+	public void setCurrentLogTimeOption(PrintTimeOption option);
 
 	/**
 	 * If we are logging at the given level, log the given message,

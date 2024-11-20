@@ -33,10 +33,18 @@ public class LogToList extends GdxApplicationLogger {
 	public LogToList(Level level) {
 		super(level);
 	}
-
+	
+	public LogToList(Level level, PrintTimeOption option) {
+		super(level, option);
+	}
+	
 	@Override
-	protected void actuallyLog(Level level, String tag, String formattedMessage) {
-		list.add(expectNonNull(String.format("[%s] %s", tag, formattedMessage)));
+	protected void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
+		if (printTime.isEmpty()) {
+			list.add(expectNonNull(String.format("[%s] %s", tag, formattedMessage)));
+		} else {
+			list.add(expectNonNull(String.format("%s [%s] %s", printTime, tag, formattedMessage)));
+		}
 	}
 
 	/**

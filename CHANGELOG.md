@@ -1,6 +1,10 @@
 # gdx-logging changelog
 
-## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.4.3...HEAD)
+## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.5.0...HEAD)
+
+## [0.5.0](https://github.com/soundasleep/gdx-logging/compare/0.4.3...0.5.0)
+
+- By default, logs are now printed with the current time - configurable with `PrintTimeOption`
 
 ## [0.4.3](https://github.com/soundasleep/gdx-logging/compare/0.4.2...0.4.3)
 

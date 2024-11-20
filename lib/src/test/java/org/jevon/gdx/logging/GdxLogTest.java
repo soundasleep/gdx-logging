@@ -6,6 +6,7 @@ package org.jevon.gdx.logging;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 import org.junit.Test;
 
 import com.badlogic.gdx.Gdx;
@@ -20,6 +21,8 @@ public class GdxLogTest {
 	public void test() {
 		TestFiles.initApplication();
 		LogToList list = new LogToList();
+		list.setCurrentLogTimeOption(PrintTimeOption.NONE);
+		
 		Gdx.app.setApplicationLogger(list);
 		GdxLog log = GdxLog.newLog("test");
 		log.warn("warning");
@@ -32,6 +35,8 @@ public class GdxLogTest {
 	public void testCanThrowableAThrowableThatContainsFormatting() {
 		TestFiles.initApplication();
 		LogToList list = new LogToList();
+		list.setCurrentLogTimeOption(PrintTimeOption.NONE);
+		
 		Gdx.app.setApplicationLogger(list);
 		GdxLog log = GdxLog.newLog("test");
 		log.throwable(new RuntimeException("%s"));

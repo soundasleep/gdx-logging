@@ -18,17 +18,22 @@ import com.badlogic.gdx.ApplicationLogger;
 public abstract class GdxApplicationLogger extends AbstractLogger implements ApplicationLogger {
 	
 	/** 
-	 * Create a new logger with the default logging level {@link AbstractLogger#DEFAULT_LEVEL}.
+	 * Create a new logger with the default logging level {@link AbstractLogger#DEFAULT_LEVEL} 
+	 * and {@link AbstractLogger#DEFAULT_PRINT_TIME}.
 	 */
 	public GdxApplicationLogger() {
-		super();
+		this(DEFAULT_LEVEL, DEFAULT_PRINT_TIME);
 	}
 
 	/**
 	 * @param level the logging level to start at 
 	 **/
 	public GdxApplicationLogger(Level level) {
-		super(level);
+		this(level, DEFAULT_PRINT_TIME);
+	}
+	
+	public GdxApplicationLogger(Level level, PrintTimeOption option) {
+		super(level, option);
 	}
 	
 	/**

@@ -5,6 +5,8 @@ package org.jevon.gdx.logging;
 
 import static org.junit.Assert.assertEquals;
 
+import org.jevon.gdx.logging.FastLogger.Level;
+import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 import org.junit.Test;
 
 import com.badlogic.gdx.Gdx;
@@ -17,7 +19,7 @@ public class GdxLogInInitTest {
 
 	{
 		TestFiles.initApplication();
-		LogToList list = new LogToList();
+		LogToList list = new LogToList(Level.WARN, PrintTimeOption.NONE);
 		Gdx.app.setApplicationLogger(list);
 	}
 	

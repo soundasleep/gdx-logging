@@ -6,6 +6,7 @@ package org.jevon.gdx.logging;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.jevon.gdx.logging.FastLogger.Level;
+import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 
 /**
  * A logger that already has a {@link #getTag() tag} built-in.
@@ -87,6 +88,16 @@ public interface GdxLog {
 	/** Set the current logging level for subsequent logging */
 	public default void setCurrentLevel(Level level) {
 		getParentLogger().setCurrentLevel(level);
+	}
+
+	/** @return the current way the log prints out the system time */
+	public default PrintTimeOption getCurrentLogTimeOption() {
+		return getParentLogger().getCurrentLogTimeOption();
+	}
+	
+	/** Set the way the log prints out the system time at log time */
+	public default void setCurrentLogTimeOption(PrintTimeOption option) {
+		getParentLogger().setCurrentLogTimeOption(option);
 	}
 	
 	/**
