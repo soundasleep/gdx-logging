@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'org.jevon.gdx.logging:gdx-logging:0.5.3' // or 'main-SNAPSHOT' for the latest build
+  implementation 'com.github.soundasleep:gdx-logging:0.2.0' // or 'main-SNAPSHOT' for the latest build
 }
 ```
 
@@ -27,12 +27,12 @@ You can then refresh your Gradle dependencies to pick up the library.
 ```java
 public class MyClass {
   private static GdxLog LOG = GdxLog.newLog(MyClass.class); // creates a new log group "MyClass"
-
+  
   private void method() {
     if (LOG.info()) {
       LOG.info("hello! %s + %s = %s", 1, 1, 2);  // => System.out.println("[MyClass] hello! 1 + 1 = 2");
     }
-  }
+  } 
 }
 ```
 
