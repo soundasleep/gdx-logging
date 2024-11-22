@@ -13,7 +13,6 @@ build
 /desktop/bin/
 /html/bin/
 /ios/bin/
-/lib/bin/
 *.tmp
 *.bak
 *.swp
