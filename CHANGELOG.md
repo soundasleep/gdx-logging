@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.5.1...HEAD)
 
+## [0.5.3](https://github.com/soundasleep/gdx-logging/compare/0.5.1...0.5.3)
+
+- Added `maven-publish` plugin to build script to allow defining licenses
+
 ## [0.5.1](https://github.com/soundasleep/gdx-logging/compare/0.5.0...0.5.1)
 
 - Change default `PrintTimeOption` for new logs to `NONE`

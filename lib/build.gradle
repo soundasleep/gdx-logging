@@ -2,12 +2,12 @@ buildscript {
   ext {
     jgitverVersion = '0.6.1'
   }
-    
+
   repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
   }
-    
+
   dependencies {
     // add :version task
     classpath "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin:$jgitverVersion"
@@ -18,6 +18,9 @@ plugins {
   // Apply the java-library plugin for API and implementation separation.
   id 'java-library'
   id 'eclipse'
+
+  // necessary for publishing on jitpack
+  id 'maven-publish'
 }
 
 apply plugin: "fr.brouillard.oss.gradle.jgitver"
@@ -38,7 +41,7 @@ dependencies {
   api "org.eclipse.jdt:org.eclipse.jdt.annotation:$jdtVersion"
 
   // Use JUnit test framework.
-  testImplementation "junit:junit:$junitVersion" 
+  testImplementation "junit:junit:$junitVersion"
   testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
   testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
@@ -52,11 +55,39 @@ java {
 
 jgitver {
   strategy 'PATTERN'
-  versionPattern '${M}.${m}.${meta.COMMIT_DISTANCE}'     
+  versionPattern '${M}.${m}.${meta.COMMIT_DISTANCE}'
 }
 
 jar {
   archivesBaseName = "${rootProject.name}"
+}
+
+// necessary for publishing on jitpack
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      pom {
+        name = 'gdx-logging'
+        description = 'Simple logging framework for libgdx'
+        url = 'https://github.com/soundasleep/gdx-logging'
+        licenses {
+          license {
+            name = 'MIT License'
+            url = 'http://www.opensource.org/licenses/mit-license.php'
+          }
+        }
+        developers {
+          developer {
+            name = 'Jevon Wright'
+            email = 'jevon@jevon.org'
+          }
+        }
+        scm {
+          url = 'https://github.com/soundasleep/gdx-logging'
+        }
+      }
+    }
+  }
 }
 
 eclipse.project.name = rootProject.name + "-lib"
