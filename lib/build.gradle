@@ -66,6 +66,9 @@ jar {
 publishing {
   publications {
     mavenJava(MavenPublication) {
+      artifactId = 'gdx-logging'
+      from components.java
+
       pom {
         name = 'gdx-logging'
         description = 'Simple logging framework for libgdx'
