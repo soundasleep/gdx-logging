@@ -13,9 +13,7 @@ import java.io.StringWriter;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.ResolverStyle;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
 /**
@@ -49,7 +47,6 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Jevon
  *
  */
-@NonNullByDefault
 public interface FastLogger {
 
 	public static enum Level {

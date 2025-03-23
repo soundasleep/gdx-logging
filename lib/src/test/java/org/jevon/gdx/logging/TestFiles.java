@@ -4,6 +4,9 @@
 package org.jevon.gdx.logging;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import org.eclipse.jdt.annotation.Nullable;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -21,7 +24,7 @@ public class TestFiles {
 		
 	}
 
-	private static HeadlessApplication headlessApplication;
+	private static @Nullable HeadlessApplication headlessApplication;
 	
 	/**
 	 * Initialise a test headless application.
@@ -31,7 +34,16 @@ public class TestFiles {
 			HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
 			headlessApplication = new HeadlessApplication(new BlankApplication(), config);
 			assertNotNull(Gdx.files);
+			assertNotNull(Gdx.app);
 		}
+	}
+	
+	public static void resetApplication() {
+		headlessApplication = null;
+		Gdx.files = null;
+		Gdx.app = null;
+		assertNull(Gdx.files);
+		assertNull(Gdx.app);
 	}
 	
 }

@@ -10,7 +10,6 @@ import static org.junit.Assert.fail;
 import java.time.LocalTime;
 import java.util.List;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.jevon.gdx.logging.FastLogger.Level;
 import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 import org.junit.Test;
@@ -19,7 +18,6 @@ import org.junit.Test;
  * @author Jevon
  *
  */
-@NonNullByDefault
 public class LogToListTest {
 
 	@Test

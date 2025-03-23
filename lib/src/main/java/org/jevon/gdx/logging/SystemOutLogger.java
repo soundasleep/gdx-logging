@@ -3,8 +3,6 @@
  */
 package org.jevon.gdx.logging;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
-
 /**
  * Copy-paste of libgdx's default {@code LwjglApplicationLogger}.
  * If the log level is >= {@Link Level#ERROR}, it is printed to stderr;
@@ -13,7 +11,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
  * @author Jevon
  *
  */
-@NonNullByDefault
 public class SystemOutLogger extends GdxApplicationLogger {
 	
 	/** 
@@ -29,13 +26,20 @@ public class SystemOutLogger extends GdxApplicationLogger {
 	public SystemOutLogger(Level level) {
 		super(level);
 	}
-
-	@Override
-	protected void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
+	
+	/** @return the actual log message that will be printed */
+	public static String getLogMessage(Level level, String printTime, String tag, String formattedMessage) {
 		String toPrint = "[" + tag + "] " + formattedMessage;
 		if (!printTime.isEmpty()) {
 			toPrint = printTime + " " + toPrint;
 		}
+		return toPrint;
+	}
+
+	@Override
+	protected void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
+		String toPrint = getLogMessage(level, printTime, tag, formattedMessage);
+		
 		if (level.value >= Level.ERROR.value) {
 			System.err.println(toPrint);
 		} else {

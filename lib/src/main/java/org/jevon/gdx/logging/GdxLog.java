@@ -3,7 +3,6 @@
  */
 package org.jevon.gdx.logging;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.jevon.gdx.logging.FastLogger.Level;
 import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
@@ -23,7 +22,6 @@ import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
  * @author Jevon
  *
  */
-@NonNullByDefault
 public interface GdxLog {
 
 	/**

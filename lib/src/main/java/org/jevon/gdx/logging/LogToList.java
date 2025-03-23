@@ -6,8 +6,6 @@ package org.jevon.gdx.logging;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
-
 /**
  * A simple logger that logs to a list of strings. Mostly used for testing.
  * <strong>NOT</strong> thread-safe or synchronized.
@@ -15,7 +13,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
  * @author Jevon
  *
  */
-@NonNullByDefault
 public class LogToList extends GdxApplicationLogger {
 	
 	private final List<String> list = new ArrayList<>(); 

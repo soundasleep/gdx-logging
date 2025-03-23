@@ -3,25 +3,25 @@
  */
 package org.jevon.gdx.logging;
 
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.jevon.gdx.logging.TemporarilyCachedLogger.CachedLogMessage;
 
-import com.badlogic.gdx.ApplicationLogger;
 import com.badlogic.gdx.Gdx;
 
 /**
- * A logger with a tag that passes everything along to {@link Gdx.app}.
+ * A logger with a tag that passes everything along to {@link Gdx#app}.
+ * The logger also keeps a cache of messages logged before {@link Gdx#app} is set,
+ * and once this log is available, all of these cached messages
+ * are inserted.
  * 
  * @author Jevon
  *
  */
-@NonNullByDefault
 public class TaggedToGdxLogger implements GdxLog {  
 	
 	private final String tag;
 	
-	private static final ApplicationLogger DEFAULT_LOGGER = new SystemOutLogger();
+	private static final TemporarilyCachedLogger DEFAULT_LOGGER = new TemporarilyCachedLogger();
 	
 	private static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = (FastLogger) DEFAULT_LOGGER;
 	
@@ -58,7 +58,7 @@ public class TaggedToGdxLogger implements GdxLog {
 			return (FastLogger) Gdx.app.getApplicationLogger();
 		}
 	}
-
+	
 	@Override
 	public FastLogger getParentLogger() {
 		FastLogger parentLogger = this.parentLogger;
@@ -68,6 +68,14 @@ public class TaggedToGdxLogger implements GdxLog {
 			if (parentLogger == null) {
 				// if Gdx.app is _still_ not set up, fallback temporarily
 				return currentFallbackLoggerIfGdxAppNotSetupYet;
+			} else {
+				// we now have a log that we can print to!
+				// print out any previously cached log messages
+				parentLogger.info("internal", "Restoring cached log messages from startup...");
+				for (CachedLogMessage s : DEFAULT_LOGGER.getAllCachedLogsAndClear()) {
+					parentLogger.log(s.getLevel(), s.getPrintTime(), s.getTag(), s.getFormattedMessage());
+				}
+				hasRestoredCachedLogs = true;
 			}
 		}		
 		
@@ -84,8 +92,14 @@ public class TaggedToGdxLogger implements GdxLog {
 	}
 
 	@Override
-	public @NonNull String getTag() {
+	public String getTag() {
 		return tag;
+	}
+
+	private boolean hasRestoredCachedLogs = false;
+
+	public boolean isHasRestoredCachedLogs() {
+		return hasRestoredCachedLogs;
 	}
 	
 }
