@@ -2,6 +2,8 @@
 
 ## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.5.1...HEAD)
 
+- Fixes an issue where a logger initialised before `Gdx.app` was set would continually check for `Gdx.app` even after it was set in the future
+
 ## [0.5.3](https://github.com/soundasleep/gdx-logging/compare/0.5.1...0.5.3)
 
 - Added `maven-publish` plugin to build script to allow defining licenses

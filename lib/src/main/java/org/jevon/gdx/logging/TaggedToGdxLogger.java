@@ -19,13 +19,18 @@ import com.badlogic.gdx.Gdx;
 @NonNullByDefault
 public class TaggedToGdxLogger implements GdxLog {  
 	
-	protected final String tag;
+	private final String tag;
 	
-	protected final static ApplicationLogger DEFAULT_LOGGER = new SystemOutLogger();
+	private static final ApplicationLogger DEFAULT_LOGGER = new SystemOutLogger();
 	
-	protected static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = (FastLogger) DEFAULT_LOGGER;
+	private static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = (FastLogger) DEFAULT_LOGGER;
 	
-	protected @Nullable FastLogger parentLogger;
+	/** 
+	 * the logger we will actually log to;
+	 * may temporarily be {@code null} while the Gdx application is booting up,
+	 * but will be set once Gdx.app is set up.
+	 */
+	private @Nullable FastLogger parentLogger;
 	
 	public TaggedToGdxLogger(String tag) {
 		// if Gdx.app hasn't been set up yet, this will return null.
@@ -58,7 +63,7 @@ public class TaggedToGdxLogger implements GdxLog {
 	public FastLogger getParentLogger() {
 		FastLogger parentLogger = this.parentLogger;
 		if (parentLogger == null) {
-			parentLogger = initialiseParentLogger(true);
+			this.parentLogger = parentLogger = initialiseParentLogger(true);
 
 			if (parentLogger == null) {
 				// if Gdx.app is _still_ not set up, fallback temporarily
@@ -69,6 +74,11 @@ public class TaggedToGdxLogger implements GdxLog {
 		return parentLogger;
 	}
 	
+	/**
+	 * By default, new logs will default to {@link #DEFAULT_LOGGER} when Gdx.app
+	 * has not been initialised yet; this method allows tests and clients
+	 * to override this fallback.
+	 */
 	public static void setFallbackLoggerIfGdxAppNotSetupYet(FastLogger logger) {
 		currentFallbackLoggerIfGdxAppNotSetupYet = logger;
 	}
