@@ -101,5 +101,11 @@ public class TaggedToGdxLogger implements GdxLog {
 	public boolean isHasRestoredCachedLogs() {
 		return hasRestoredCachedLogs;
 	}
+
+	/** @return the default logger that all {@link TaggedToGdxLogger}s use 
+	 * 		when {@link Gdx#app} is not available, e.g. during startup */
+	public static TemporarilyCachedLogger getDefaultLogger() {
+		return DEFAULT_LOGGER;
+	}
 	
 }

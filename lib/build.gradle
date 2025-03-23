@@ -49,8 +49,10 @@ dependencies {
 group = 'org.jevon.gdx.logging'
 
 java {
-	withSourcesJar()
-	// withJavadocJar() - I care not for javadocs
+  withSourcesJar()
+  // withJavadocJar() - I care not for javadocs
+
+  sourceCompatibility = 1.16
 }
 
 jgitver {
