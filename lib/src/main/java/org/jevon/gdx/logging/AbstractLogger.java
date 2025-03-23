@@ -4,9 +4,7 @@
 package org.jevon.gdx.logging;
 
 import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
-import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 
 /**
  * Common log behaviour.
@@ -14,7 +12,6 @@ import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
  * @author Jevon
  *
  */
-@NonNullByDefault
 public abstract class AbstractLogger implements FastLogger {
 	
 	/** default logging level: INFO */
@@ -63,7 +60,7 @@ public abstract class AbstractLogger implements FastLogger {
 	}
 
 	@Override
-	public void log(Level level, String tag, String message, Object... args) {
+	public void log(Level level, String tag, String message, @Nullable Object... args) {
 		if (level.value >= getCurrentLevel().value) {
 			String formatted = String.format(message, args);
 			String printTime = currentPrintTime.getCurrentPrintTime();

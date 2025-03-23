@@ -1,6 +1,12 @@
 # gdx-logging changelog
 
-## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.5.1...HEAD)
+## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.6.0...HEAD)
+
+## [0.6.0](https://github.com/soundasleep/gdx-logging/compare/0.5.3...0.6.0)
+
+- During startup, `GdxLog`s will now cache log messages, and restore these log messages once `Gdx.app` is available, so that no startup logging information is lost
+- Library now explicitly targets JDK 16 rather than whatever JDK is available at compile time
+- Fixes an issue where a logger initialised before `Gdx.app` was set would continually check for `Gdx.app` even after it was set in the future
 
 ## [0.5.3](https://github.com/soundasleep/gdx-logging/compare/0.5.1...0.5.3)
 

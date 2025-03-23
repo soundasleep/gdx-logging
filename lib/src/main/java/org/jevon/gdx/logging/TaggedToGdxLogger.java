@@ -3,29 +3,34 @@
  */
 package org.jevon.gdx.logging;
 
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
+import org.jevon.gdx.logging.TemporarilyCachedLogger.CachedLogMessage;
 
-import com.badlogic.gdx.ApplicationLogger;
 import com.badlogic.gdx.Gdx;
 
 /**
- * A logger with a tag that passes everything along to {@link Gdx.app}.
+ * A logger with a tag that passes everything along to {@link Gdx#app}.
+ * The logger also keeps a cache of messages logged before {@link Gdx#app} is set,
+ * and once this log is available, all of these cached messages
+ * are inserted.
  * 
  * @author Jevon
  *
  */
-@NonNullByDefault
 public class TaggedToGdxLogger implements GdxLog {  
 	
-	protected final String tag;
+	private final String tag;
 	
-	protected final static ApplicationLogger DEFAULT_LOGGER = new SystemOutLogger();
+	private static final TemporarilyCachedLogger DEFAULT_LOGGER = new TemporarilyCachedLogger();
 	
-	protected static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = (FastLogger) DEFAULT_LOGGER;
+	private static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = (FastLogger) DEFAULT_LOGGER;
 	
-	protected @Nullable FastLogger parentLogger;
+	/** 
+	 * the logger we will actually log to;
+	 * may temporarily be {@code null} while the Gdx application is booting up,
+	 * but will be set once Gdx.app is set up.
+	 */
+	private @Nullable FastLogger parentLogger;
 	
 	public TaggedToGdxLogger(String tag) {
 		// if Gdx.app hasn't been set up yet, this will return null.
@@ -53,29 +58,54 @@ public class TaggedToGdxLogger implements GdxLog {
 			return (FastLogger) Gdx.app.getApplicationLogger();
 		}
 	}
-
+	
 	@Override
 	public FastLogger getParentLogger() {
 		FastLogger parentLogger = this.parentLogger;
 		if (parentLogger == null) {
-			parentLogger = initialiseParentLogger(true);
+			this.parentLogger = parentLogger = initialiseParentLogger(true);
 
 			if (parentLogger == null) {
 				// if Gdx.app is _still_ not set up, fallback temporarily
 				return currentFallbackLoggerIfGdxAppNotSetupYet;
+			} else {
+				// we now have a log that we can print to!
+				// print out any previously cached log messages
+				parentLogger.info("internal", "Restoring cached log messages from startup...");
+				for (CachedLogMessage s : DEFAULT_LOGGER.getAllCachedLogsAndClear()) {
+					parentLogger.log(s.getLevel(), s.getPrintTime(), s.getTag(), s.getFormattedMessage());
+				}
+				hasRestoredCachedLogs = true;
 			}
 		}		
 		
 		return parentLogger;
 	}
 	
+	/**
+	 * By default, new logs will default to {@link #DEFAULT_LOGGER} when Gdx.app
+	 * has not been initialised yet; this method allows tests and clients
+	 * to override this fallback.
+	 */
 	public static void setFallbackLoggerIfGdxAppNotSetupYet(FastLogger logger) {
 		currentFallbackLoggerIfGdxAppNotSetupYet = logger;
 	}
 
 	@Override
-	public @NonNull String getTag() {
+	public String getTag() {
 		return tag;
+	}
+
+	private boolean hasRestoredCachedLogs = false;
+
+	public boolean isHasRestoredCachedLogs() {
+		return hasRestoredCachedLogs;
+	}
+
+	/** @return the default logger that all {@link TaggedToGdxLogger}s use 
+	 * 		when {@link Gdx#app} is not available, e.g. during startup */
+	public static TemporarilyCachedLogger getDefaultLogger() {
+		return DEFAULT_LOGGER;
 	}
 	
 }

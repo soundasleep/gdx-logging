@@ -4,26 +4,32 @@
 package org.jevon.gdx.logging;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.time.LocalTime;
 import java.util.Collection;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
-import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
+import org.eclipse.jdt.annotation.Nullable;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author Jevon
  *
  */
-@NonNullByDefault
 public class FallbackLoggerTest {
 	
-	private static final GdxLog log = GdxLog.newLog(FallbackLoggerTest.class);
+	private @Nullable GdxLog log;
 	
 	private final LogToList fallback = new LogToList();
+	
+	@Before
+	public void init() {
+		TestFiles.resetApplication();
+		log = GdxLog.newLog(FallbackLoggerTest.class);
+	}
 	
 	public static void assertEmpty(Collection<?> list) {
 		if (!list.isEmpty()) {
@@ -33,16 +39,28 @@ public class FallbackLoggerTest {
 	
 	@Test
 	public void test() {
+		TaggedToGdxLogger cast = (TaggedToGdxLogger) log;
+		assertNotNull(cast);
+		
 		assertEmpty(fallback.getList());
-		log.info("test");
+		cast.info("test");
 		assertEmpty(fallback.getList());
 		TaggedToGdxLogger.setFallbackLoggerIfGdxAppNotSetupYet(fallback);
 		assertEmpty(fallback.getList());
-		log.info("test2");
+		cast.info("test2");
 		assertEquals(1, fallback.getList().size());
 		assertTrue(fallback.getList().get(0).contains(" test2"));
+		assertFalse(cast.isHasRestoredCachedLogs());
+		
+		// and now if we make Gdx.app available, and try and log another message
+		TestFiles.initApplication();
+		cast.info("test3");
+		
+		// we get all of the logs
+		assertTrue(cast.isHasRestoredCachedLogs());
 	}
 	
+	@SuppressWarnings("unused")
 	@Test
 	public void testThrowable() {
 		try {
@@ -52,6 +70,8 @@ public class FallbackLoggerTest {
 			fail("unexpected");
 		} catch (IndexOutOfBoundsException e) {
 			// print to log
+			GdxLog log = this.log;
+			assertNotNull(log);
 			log.throwable(e);			
 		}		
 	}

@@ -3,7 +3,6 @@
  */
 package org.jevon.gdx.logging;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
 import com.badlogic.gdx.ApplicationLogger;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.ApplicationLogger;
  * @author Jevon
  *
  */
-@NonNullByDefault
 public abstract class GdxApplicationLogger extends AbstractLogger implements ApplicationLogger {
 	
 	/** 
