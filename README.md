@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.soundasleep:gdx-logging:0.2.0' // or 'main-SNAPSHOT' for the latest build
+  implementation 'com.github.soundasleep:gdx-logging:0.6.0' // or 'main-SNAPSHOT' for the latest build
 }
 ```
 
