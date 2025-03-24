@@ -3,6 +3,8 @@
  */
 package org.jevon.gdx.logging;
 
+import java.util.List;
+
 import org.eclipse.jdt.annotation.Nullable;
 import org.jevon.gdx.logging.TemporarilyCachedLogger.CachedLogMessage;
 
@@ -23,12 +25,12 @@ public class TaggedToGdxLogger implements GdxLog {
 	
 	private static final TemporarilyCachedLogger DEFAULT_LOGGER = new TemporarilyCachedLogger();
 	
-	private static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = (FastLogger) DEFAULT_LOGGER;
+	private static FastLogger currentFallbackLoggerIfGdxAppNotSetupYet = DEFAULT_LOGGER;
 	
 	/** 
 	 * the logger we will actually log to;
 	 * may temporarily be {@code null} while the Gdx application is booting up,
-	 * but will be set once Gdx.app is set up.
+	 * but will be an instance of a logger once Gdx.app is set.
 	 */
 	private @Nullable FastLogger parentLogger;
 	
@@ -71,9 +73,12 @@ public class TaggedToGdxLogger implements GdxLog {
 			} else {
 				// we now have a log that we can print to!
 				// print out any previously cached log messages
-				parentLogger.info("internal", "Restoring cached log messages from startup...");
-				for (CachedLogMessage s : DEFAULT_LOGGER.getAllCachedLogsAndClear()) {
-					parentLogger.log(s.getLevel(), s.getPrintTime(), s.getTag(), s.getFormattedMessage());
+				List<CachedLogMessage> cached = DEFAULT_LOGGER.getAllCachedLogsAndClear();
+				if (!cached.isEmpty()) {
+					parentLogger.info("internal", "Restoring %s cached log messages from startup...", cached.size());
+					for (CachedLogMessage s : cached) {
+						parentLogger.log(s.getLevel(), s.getPrintTime(), s.getTag(), s.getFormattedMessage());
+					}
 				}
 				hasRestoredCachedLogs = true;
 			}
