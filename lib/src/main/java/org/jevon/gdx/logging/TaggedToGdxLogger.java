@@ -77,7 +77,7 @@ public class TaggedToGdxLogger implements GdxLog {
 				if (!cached.isEmpty()) {
 					parentLogger.info("internal", "Restoring %s cached log messages from startup...", cached.size());
 					for (CachedLogMessage s : cached) {
-						parentLogger.log(s.getLevel(), s.getPrintTime(), s.getTag(), s.getFormattedMessage());
+						parentLogger.actuallyLog(s.getLevel(), s.getPrintTime(), s.getTag(), s.getFormattedMessage());
 					}
 				}
 				hasRestoredCachedLogs = true;

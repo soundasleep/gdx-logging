@@ -107,6 +107,7 @@ public abstract class AbstractLogger implements FastLogger {
 	 * Actually do whatever logging we want to do.
 	 * We've already done the level check and the message formatting (if any).
 	 */
-	protected abstract void actuallyLog(Level level, String printTime, String tag, String formattedMessage);
+	@Override
+	public abstract void actuallyLog(Level level, String printTime, String tag, String formattedMessage);
 
 }

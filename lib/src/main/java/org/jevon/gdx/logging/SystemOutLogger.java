@@ -37,7 +37,7 @@ public class SystemOutLogger extends GdxApplicationLogger {
 	}
 
 	@Override
-	protected void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
+	public void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
 		String toPrint = getLogMessage(level, printTime, tag, formattedMessage);
 		
 		if (level.value >= Level.ERROR.value) {

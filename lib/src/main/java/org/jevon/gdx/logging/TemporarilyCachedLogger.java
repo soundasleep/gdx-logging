@@ -47,7 +47,7 @@ public class TemporarilyCachedLogger extends SystemOutLogger {
 	private static final Object lock = new Object();
 	
 	@Override
-	protected void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
+	public void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
 		// add to the log cache
 		synchronized (lock) {
 			cachedLogs.add(new CachedLogMessage(level, printTime, tag, formattedMessage));

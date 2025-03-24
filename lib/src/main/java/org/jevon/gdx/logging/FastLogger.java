@@ -170,7 +170,13 @@ public interface FastLogger {
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
 	public void log(Level level, String tag, String message, @Nullable Object... args);
-	
+
+	/**
+	 * Actually do whatever logging we want to do.
+	 * We've already done the level check and the message formatting (if any).
+	 */
+	public void actuallyLog(Level level, String printTime, String tag, String formattedMessage);
+
 	/**
 	 * Log relatively detailed tracing used by application developers.
 	 * 

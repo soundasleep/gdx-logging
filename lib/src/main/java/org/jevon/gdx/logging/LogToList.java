@@ -36,7 +36,7 @@ public class LogToList extends GdxApplicationLogger {
 	}
 	
 	@Override
-	protected void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
+	public void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
 		if (printTime.isEmpty()) {
 			list.add(expectNonNull(String.format("[%s] %s", tag, formattedMessage)));
 		} else {
