@@ -103,7 +103,7 @@ public class Slf4jGdxLogger extends AbstractLogger implements ILoggerFactory {
 		default -> throw new IllegalArgumentException("unknown level " + level);
 		};
 		
-		log.log(convertedLevel, formatSlf4jMessage(messagePattern, arguments));
+		log.log(convertedLevel, "%s", formatSlf4jMessage(messagePattern, arguments));
 		
 		if (throwable != null) {
 			log.throwable(throwable);

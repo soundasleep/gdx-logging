@@ -77,4 +77,13 @@ public class Slf4jLoggingTest {
 		assertEquals("[org.jevon.gdx.logging.Slf4jLoggingTest] a1 + 2 = 3c", list.getList().get(0));
 	}
 
+	@Test
+	public void testCanPrintArgumentsThatWouldThrowAnErrorWithStringFormat() {
+		assertTrue(list.getList().isEmpty());
+		Logger slf4jLogger = LoggerFactory.getLogger(Slf4jLoggingTest.class);
+		slf4jLogger.info("hello {}", "$1%s");
+		assertEquals(1, list.getList().size());
+		assertEquals("[org.jevon.gdx.logging.Slf4jLoggingTest] hello $1%s", list.getList().get(0));
+	}
+
 }

@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.7.0...HEAD)
 
+## [0.7.3](https://github.com/soundasleep/gdx-logging/compare/0.7.2...0.7.3)
+
+- Fix slf4j logging crashing when trying to print sequences that would be invalid for `String.format` - i.e. formatting was trying to be applied twice
+
 ## [0.7.2](https://github.com/soundasleep/gdx-logging/compare/0.7.1...0.7.2)
 
 - slf4j logging with `{}` argument parameters should now work better

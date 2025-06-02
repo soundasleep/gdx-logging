@@ -105,7 +105,7 @@ public interface FastLogger extends CommonLogMethods {
 	 * optionally {@link String#format(String, Object...) formatted} with the given arguments.
 	 * 
 	 * @param tag grouping label
-	 * @param message message with %s for formatting
+	 * @param message unformatted message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
 	public void log(Level level, String tag, String message, @Nullable Object @Nullable... args);
