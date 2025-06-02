@@ -60,8 +60,8 @@ public abstract class AbstractLogger implements FastLogger {
 	}
 
 	@Override
-	public void log(Level level, String tag, String message, @Nullable Object... args) {
-		if (level.value >= getCurrentLevel().value) {
+	public void log(Level level, String tag, String message, @Nullable Object @Nullable... args) {
+		if (level.getValue() >= getCurrentLevel().getValue()) {
 			String formatted = String.format(message, args);
 			String printTime = currentPrintTime.getCurrentPrintTime();
 			actuallyLog(level, printTime, tag, expectNonNull(formatted));

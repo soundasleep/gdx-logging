@@ -47,28 +47,8 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Jevon
  *
  */
-public interface FastLogger {
+public interface FastLogger extends CommonLogMethods {
 
-	public static enum Level {
-		/** Don't log anything. */
-		NONE(5),
-		/** Error events of considerable importance that will prevent normal program execution, but might still allow the application to continue running. */		
-		ERROR(4),
-		/** Potentially harmful situations of interest to end users or system managers that indicate potential problems. */
-		WARN(3),
-		/** Informational messages that might make sense to end users and system administrators, and highlight the progress of the application. */
-		INFO(2),
-		/** Relatively detailed tracing used by application developers. */
-		DEBUG(1),
-		;
-
-		final int value;
-		
-		Level(int value) {
-			this.value = value;
-		}
-	}
-	
 	/**
 	 * Different predefined ways to print the date/time before log messages.
 	 * 
@@ -117,47 +97,6 @@ public interface FastLogger {
 
 	}
 	
-	/** 
-	 * @return true if debug or higher messages will be printed somewhere 
-	 */
-	public default boolean debug() {
-		 return willLog(Level.DEBUG);
-	}
-	
-	/** 
-	 * @return true if info or higher messages will be printed somewhere
-	 */
-	public default boolean info() {
-		return willLog(Level.INFO);
-	}
-	
-	/** 
-	 * @return true if warn or higher messages will be printed somewhere 
-	 */
-	public default boolean warn() {
-		return willLog(Level.WARN);
-	}
-	
-	/**
-	 * @return true if error or higher messages will be printed somewhere
-	 */
-	public default boolean error() {
-		return willLog(Level.ERROR);
-	}
-	
-	public default boolean willLog(Level level) {
-		return getCurrentLevel().value >= level.value;
-	}
-	
-	/** @return the current logging level */
-	public Level getCurrentLevel();
-	
-	/** Set the current logging level for subsequent logging */
-	public void setCurrentLevel(Level level);
-	
-	/** @return the current way the log prints out the system time */
-	public PrintTimeOption getCurrentLogTimeOption();
-	
 	/** Set the way the log prints out the system time at log time */
 	public void setCurrentLogTimeOption(PrintTimeOption option);
 
@@ -169,7 +108,7 @@ public interface FastLogger {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public void log(Level level, String tag, String message, @Nullable Object... args);
+	public void log(Level level, String tag, String message, @Nullable Object @Nullable... args);
 
 	/**
 	 * Actually do whatever logging we want to do.
@@ -188,7 +127,7 @@ public interface FastLogger {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void debug(String tag, String message, @Nullable Object... args) {
+	public default void debug(String tag, String message, @Nullable Object @Nullable... args) {
 		log(Level.DEBUG, tag, message, args);
 	}
 	

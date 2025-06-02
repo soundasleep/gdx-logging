@@ -44,6 +44,11 @@ private void method() {
 }
 ```
 
+### slf4j is automatically dealt with
+
+By including this library, sl4j 2.x is included, and a service provider automatically connected.
+You probably don't want users of your gdx project messing around with logging?
+
 ## Developing in Eclipse
 
 1. Clone this repository using Git

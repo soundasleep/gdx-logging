@@ -1,6 +1,13 @@
 # gdx-logging changelog
 
-## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.6.0...HEAD)
+## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.7.0...HEAD)
+
+## [0.7.0](https://github.com/soundasleep/gdx-logging/compare/0.6.3...0.7.0)
+
+- Added experimental support for slf4j; slf4j logging should now automatically go to GDX
+- Based on https://www.slf4j.org/faq.html#slf4j_compatible
+- Moved `FastLogger.Level` to top-level enum `Level`
+- Fixed a bug where `.willLog(ERROR)` would return false for an `INFO` logger
 
 ## [0.6.3](https://github.com/soundasleep/gdx-logging/compare/0.6.0...0.6.3)
 

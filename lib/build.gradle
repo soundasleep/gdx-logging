@@ -34,11 +34,13 @@ ext {
   gdxVersion = '1.10.0'
   jdtVersion = '2.2.600'
   junitVersion = '4.13.2'
+  slf4jVersion = '2.0.17'
 }
 
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
   api "org.eclipse.jdt:org.eclipse.jdt.annotation:$jdtVersion"
+  api "org.slf4j:slf4j-api:$slf4jVersion"
 
   // Use JUnit test framework.
   testImplementation "junit:junit:$junitVersion"

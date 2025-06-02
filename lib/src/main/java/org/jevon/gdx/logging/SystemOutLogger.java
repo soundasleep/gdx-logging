@@ -40,7 +40,7 @@ public class SystemOutLogger extends GdxApplicationLogger {
 	public void actuallyLog(Level level, String printTime, String tag, String formattedMessage) {
 		String toPrint = getLogMessage(level, printTime, tag, formattedMessage);
 		
-		if (level.value >= Level.ERROR.value) {
+		if (level.getValue() >= Level.ERROR.getValue()) {
 			System.err.println(toPrint);
 		} else {
 			System.out.println(toPrint);
@@ -49,7 +49,7 @@ public class SystemOutLogger extends GdxApplicationLogger {
 	
 	@Override
 	protected void printStackTrace(Level level, Throwable exception) {
-		if (level.value >= Level.ERROR.value) {
+		if (level.getValue() >= Level.ERROR.getValue()) {
 			exception.printStackTrace(System.err);
 		} else {
 			exception.printStackTrace(System.out);
