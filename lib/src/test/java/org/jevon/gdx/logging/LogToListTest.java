@@ -10,7 +10,6 @@ import static org.junit.Assert.fail;
 import java.time.LocalTime;
 import java.util.List;
 
-import org.jevon.gdx.logging.FastLogger.Level;
 import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 import org.junit.Test;
 

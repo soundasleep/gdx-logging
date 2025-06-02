@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.eclipse.jdt.annotation.Nullable;
-import org.jevon.gdx.logging.FastLogger.Level;
 import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 import org.junit.Test;
 

@@ -4,7 +4,6 @@
 package org.jevon.gdx.logging;
 
 import org.eclipse.jdt.annotation.Nullable;
-import org.jevon.gdx.logging.FastLogger.Level;
 import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 
 /**
@@ -22,7 +21,7 @@ import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
  * @author Jevon
  *
  */
-public interface GdxLog {
+public interface GdxLog extends CommonLogMethods {
 
 	/**
 	 * Helpful method to create a new log quickly.
@@ -53,42 +52,21 @@ public interface GdxLog {
 	
 	/** @return the parent logger */
 	public FastLogger getParentLogger();
-
-	/** @return true if debug or higher messages will be printed somewhere */
-	public default boolean debug() {
-		 return getParentLogger().willLog(Level.DEBUG);
-	}
-	
-	/** @return true if info or higher messages will be printed somewhere */
-	public default boolean info() {
-		return getParentLogger().willLog(Level.INFO);
-	}
-	
-	/** @return true if warn or higher messages will be printed somewhere */
-	public default boolean warn() {
-		return getParentLogger().willLog(Level.WARN);
-	}
-	
-	/** @return true if error or higher messages will be printed somewhere */
-	public default boolean error() {
-		return getParentLogger().willLog(Level.ERROR);
-	}
-	
-	public default boolean willLog(Level level) {
-		return getParentLogger().getCurrentLevel().value >= level.value;
-	}
 	
 	/** @return the current logging level */
+	@Override
 	public default Level getCurrentLevel() {
 		return getParentLogger().getCurrentLevel();
 	}
 	
 	/** Set the current logging level for subsequent logging */
+	@Override
 	public default void setCurrentLevel(Level level) {
 		getParentLogger().setCurrentLevel(level);
 	}
 
 	/** @return the current way the log prints out the system time */
+	@Override
 	public default PrintTimeOption getCurrentLogTimeOption() {
 		return getParentLogger().getCurrentLogTimeOption();
 	}
@@ -111,7 +89,7 @@ public interface GdxLog {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void log(Level level, String message, @Nullable Object... args) {
+	public default void log(Level level, String message, @Nullable Object @Nullable... args) {
 		getParentLogger().log(level, getTag(), message, args);
 	}
 	
@@ -126,7 +104,7 @@ public interface GdxLog {
 	 * @param message message with %s for formatting
 	 * @param args optional parameters to pass to {@link String#format(String, Object...)}
 	 */
-	public default void debug(String message, @Nullable Object... args) {
+	public default void debug(String message, @Nullable Object @Nullable... args) {
 		log(Level.DEBUG, message, args);
 	}
 	
