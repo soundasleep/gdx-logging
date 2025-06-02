@@ -58,5 +58,23 @@ public class Slf4jLoggingTest {
 		assertEquals("[org.jevon.gdx.logging.Slf4jLoggingTest] expected", list.getList().get(0));
 		assertTrue(list.getList().get(1).contains("expected via slf4j"));
 	}
+	
+	@Test
+	public void testWithArguments() {
+		assertTrue(list.getList().isEmpty());
+		Logger slf4jLogger = LoggerFactory.getLogger(Slf4jLoggingTest.class);
+		slf4jLogger.info("{} + {} = {}", 1, 2, 1 + 2);
+		assertEquals(1, list.getList().size());
+		assertEquals("[org.jevon.gdx.logging.Slf4jLoggingTest] 1 + 2 = 3", list.getList().get(0));
+	}
+
+	@Test
+	public void testWithArguments2() {
+		assertTrue(list.getList().isEmpty());
+		Logger slf4jLogger = LoggerFactory.getLogger(Slf4jLoggingTest.class);
+		slf4jLogger.info("a{} + {} = {}c", 1, 2, 1 + 2);
+		assertEquals(1, list.getList().size());
+		assertEquals("[org.jevon.gdx.logging.Slf4jLoggingTest] a1 + 2 = 3c", list.getList().get(0));
+	}
 
 }

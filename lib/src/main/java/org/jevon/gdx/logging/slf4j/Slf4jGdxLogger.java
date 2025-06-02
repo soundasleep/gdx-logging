@@ -103,11 +103,41 @@ public class Slf4jGdxLogger extends AbstractLogger implements ILoggerFactory {
 		default -> throw new IllegalArgumentException("unknown level " + level);
 		};
 		
-		log.log(convertedLevel, messagePattern, arguments);
+		log.log(convertedLevel, formatSlf4jMessage(messagePattern, arguments));
 		
 		if (throwable != null) {
 			log.throwable(throwable);
 		}
+	}
+
+	/**
+	 * Converts a string like "a {} b {} c" into specific arguments.
+	 * I'm sure there is a proper library to use here but I can't immediately
+	 * find out what it is. 
+	 * Probably something Apache-related.
+	 */
+	private String formatSlf4jMessage(String message, Object @Nullable [] arguments) {
+		if (arguments == null) {
+			arguments = new Object[] {};
+		}
+		
+		String result = "";
+		int arg = 0;
+		for (int i = 0; i < message.length(); i++) {
+			int index = message.indexOf("{}", i);
+			if (index == -1) {
+				// all done
+				result += message.substring(i);
+				break;
+			} else {
+				result += message.substring(i, index);
+				result += arguments[arg];
+				arg += 1;
+				i = index + 1;
+			}
+		}
+		
+		return result;
 	}
 	
 	private static final Set<String> disableInfoLoggingForClasses = new HashSet<>();
