@@ -4,14 +4,8 @@
 package org.jevon.gdx.logging;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
-import java.util.Collection;
-
-import org.eclipse.jdt.annotation.Nullable;
 import org.jevon.gdx.logging.FastLogger.PrintTimeOption;
 import org.junit.Before;
 import org.junit.Test;
