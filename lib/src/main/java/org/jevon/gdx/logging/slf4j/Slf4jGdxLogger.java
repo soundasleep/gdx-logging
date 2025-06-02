@@ -1,5 +1,8 @@
 package org.jevon.gdx.logging.slf4j;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.jdt.annotation.Nullable;
 import org.jevon.gdx.logging.GdxLog;
 import org.slf4j.ILoggerFactory;
@@ -104,7 +107,16 @@ public class Slf4jGdxLogger extends AbstractLogger implements ILoggerFactory {
 		
 		if (throwable != null) {
 			log.throwable(throwable);
-		}	
+		}
+	}
+	
+	private static final Set<String> disableInfoLoggingForClasses = new HashSet<>();
+	private static final Object disableInfoLoggingForClassesLock = new Object();
+	
+	public static void disableInfoLoggingForName(String name) {
+		synchronized (disableInfoLoggingForClassesLock) {
+			disableInfoLoggingForClasses.add(name);
+		}
 	}
 
 	@Override
@@ -112,6 +124,23 @@ public class Slf4jGdxLogger extends AbstractLogger implements ILoggerFactory {
 		if (name == null) {
 			name = "<null>";
 		}
+		
+		// HACK: special case until https://github.com/radkovo/jStyleParser/issues/124 is fixed
+		// or until we allow users of gdx-logging to configure slf4j logging per-name
+		synchronized (disableInfoLoggingForClassesLock) {
+			if (disableInfoLoggingForClasses.contains(name)) {
+				return new Slf4jGdxLogger(GdxLog.newLog(name)) {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public boolean isInfoEnabled() {
+						// don't print any infos!
+						return false;
+					}
+				};	
+			}
+		}
+		
 		return new Slf4jGdxLogger(GdxLog.newLog(name));
 	}
 	

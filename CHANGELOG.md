@@ -2,6 +2,10 @@
 
 ## [Unreleased](https://github.com/soundasleep/gdx-logging/compare/0.7.0...HEAD)
 
+## [0.7.1](https://github.com/soundasleep/gdx-logging/compare/0.7.0...0.7.1)
+
+- Added temporary `Slf4jGdxLogger#disableInfoLoggingForName` workaround for super-verbose logging classes
+
 ## [0.7.0](https://github.com/soundasleep/gdx-logging/compare/0.6.3...0.7.0)
 
 - Added experimental support for slf4j; slf4j logging should now automatically go to GDX
