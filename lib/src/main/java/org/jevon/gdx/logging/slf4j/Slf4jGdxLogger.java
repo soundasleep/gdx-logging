@@ -124,16 +124,33 @@ public class Slf4jGdxLogger extends AbstractLogger implements ILoggerFactory {
 		String result = "";
 		int arg = 0;
 		for (int i = 0; i < message.length(); i++) {
-			int index = message.indexOf("{}", i);
-			if (index == -1) {
+			int index1 = message.indexOf("{}", i);
+			int index2 = message.indexOf("%s", i);
+			
+			int finalIndex;
+			if (index1 >= 0) {
+				if (index2 >= 0) {
+					finalIndex = Math.min(index1, index2);
+				} else {
+					finalIndex = index1;
+				}
+			} else {
+				if (index2 >= 0) {
+					finalIndex = index2;
+				} else {
+					finalIndex = -1;
+				}
+			}
+			
+			if (finalIndex == -1) {
 				// all done
 				result += message.substring(i);
 				break;
 			} else {
-				result += message.substring(i, index);
+				result += message.substring(i, finalIndex);
 				result += arguments[arg];
 				arg += 1;
-				i = index + 1;
+				i = finalIndex + 1 /* both {} and %s are the same length */;
 			}
 		}
 		

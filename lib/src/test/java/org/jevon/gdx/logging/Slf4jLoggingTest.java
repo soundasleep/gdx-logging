@@ -67,6 +67,15 @@ public class Slf4jLoggingTest {
 		assertEquals(1, list.getList().size());
 		assertEquals("[org.jevon.gdx.logging.Slf4jLoggingTest] 1 + 2 = 3", list.getList().get(0));
 	}
+	
+	@Test
+	public void testWithArgumentsUsingPercentS() {
+		assertTrue(list.getList().isEmpty());
+		Logger slf4jLogger = LoggerFactory.getLogger(Slf4jLoggingTest.class);
+		slf4jLogger.info("%s + %s = %s", 1, 2, 1 + 2);
+		assertEquals(1, list.getList().size());
+		assertEquals("[org.jevon.gdx.logging.Slf4jLoggingTest] 1 + 2 = 3", list.getList().get(0));
+	}
 
 	@Test
 	public void testWithArguments2() {
